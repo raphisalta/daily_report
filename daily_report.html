@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>きょうの日報！</title>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="https://www.livejournal.com/favicon.ico"></link>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
+        <link rel="stylesheet" href="./daily_report.css"></link>
+	</head>
+
+
+
+	<body>
+		<div class="menu">
+			<div class="menu-button" data-menu-id="file">ファイル</div>
+			<div class="menu-button" data-menu-id="data">データ</div>
+			<div class="menu-items" data-menu-id="file">
+				<div class="menu-action" data-action-id="take-over">前日の日報を引き継いで作成</div>
+			</div>
+			<div class="menu-items" data-menu-id="data">
+				<div class="menu-action" data-action-id="data-clear">クリア</div>
+				<div class="menu-action" data-action-id="data-export">エクスポート</div>
+				<div class="menu-action" data-action-id="data-import">インポート</div>
+			</div>
+		</div>
+		<div class="menu-margin">
+		</div>
+		<div class="form">
+			<div class="edit-area">
+				<div class="section essay">
+					<input class="section-title" value="悩んでいること" readonly="readonly"></input>
+					<textarea class="contents section-value save-trigger" placeholder="（いいアドバイスがもらえるように書きましょう）"></textarea>
+				</div>
+				<div class="section essay">
+					<input class="section-title" value="雑記" readonly="readonly"></input>
+					<textarea class="contents section-value save-trigger" placeholder="（なんでもよいので一言書いてください）"></textarea>
+				</div>
+				<div class="section range">
+					<input class="section-title" value="勤務時間" readonly="readonly"></input>
+					<div class="section-row section-value save-trigger">
+						<select class="from">
+							<option value="5:00">5:00</option>
+							<option value="5:30">5:30</option>
+							<option value="6:00">6:00</option>
+							<option value="6:30">6:30</option>
+							<option value="7:00">7:00</option>
+							<option value="7:30">7:30</option>
+							<option value="8:00">8:00</option>
+							<option value="8:30">8:30</option>
+							<option value="9:00">9:00</option>
+							<option value="9:30">9:30</option>
+							<option value="10:00">10:00</option>
+							<option value="10:30">10:30</option>
+							<option value="11:00">11:00</option>
+							<option value="11:30">11:30</option>
+							<option value="12:00">12:00</option>
+							<option value="12:30">12:30</option>
+							<option value="13:00">13:00</option>
+							<option value="13:30">13:30</option>
+							<option value="14:00">14:00</option>
+							<option value="14:30">14:30</option>
+							<option value="15:00">15:00</option>
+							<option value="15:30">15:30</option>
+							<option value="16:00">16:00</option>
+							<option value="16:30">16:30</option>
+							<option value="17:00">17:00</option>
+						</select>
+						<p class="simple-mark-text">～</p>
+						<select class="to save-trigger">
+							<option value="12:00">12:00</option>
+							<option value="12:30">12:30</option>
+							<option value="13:00">13:00</option>
+							<option value="13:30">13:30</option>
+							<option value="14:00">14:00</option>
+							<option value="14:30">14:30</option>
+							<option value="15:00">15:00</option>
+							<option value="15:30">15:30</option>
+							<option value="16:00">16:00</option>
+							<option value="16:30">16:30</option>
+							<option value="17:00">17:00</option>
+							<option value="17:30">17:30</option>
+							<option value="18:00">18:00</option>
+							<option value="18:30">18:30</option>
+							<option value="19:00">19:00</option>
+							<option value="19:30">19:30</option>
+							<option value="20:00">20:00</option>
+							<option value="20:30">20:30</option>
+							<option value="21:00">21:00</option>
+							<option value="21:30">21:30</option>
+							<option value="22:00">22:00</option>
+							<option value="22:30">22:30</option>
+							<option value="23:00">23:00</option>
+							<option value="23:30">23:30</option>
+							<option value="24:00">24:00</option>
+						</select>
+					</div>
+				</div>
+				<div class="section essay">
+					<input class="section-title" value="今日の業務ダイジェスト" readonly="readonly"></input>
+					<textarea class="contents section-value save-trigger"></textarea>
+				</div>
+				<div class="section cost-input" data-template-id="today-cost-template">
+					<input class="section-title" value="今日の実績" readonly="readonly"></input>
+					<div class="section-value days-cost" data-days-cost-id="today"></div>
+					<input class="total-cost" readonly="readonly"></input>
+				</div>
+				<div class="section cost-input" data-template-id="nextday-cost-template">
+					<input class="section-title" value="明日の予定" readonly="readonly"></input>
+					<div class="section-value days-cost" data-days-cost-id="nextday"></div>
+				</div>
+			</div>
+
+			<div class="view-area">
+				<textarea class="report" readonly="readonly"></textarea>
+			</div>
+			<div class="meta-codes">
+				<a id="export-link" download="daily-report.json" style="display:none;">_</a>
+				<div class="floating-div"></div>
+			</div>
+		</div>
+
+
+
+
+
+
+		
+
+		<template id="today-cost-template">
+			<div class="section-row production-cost undraggable">
+				<select class="costs save-trigger">
+					<option value=""></option>
+					<option value="0.5">0.5</option>
+					<option value="1.0">1.0</option>
+					<option value="1.5">1.5</option>
+					<option value="2.0">2.0</option>
+					<option value="2.5">2.5</option>
+					<option value="3.0">3.0</option>
+					<option value="3.5">3.5</option>
+					<option value="4.0">4.0</option>
+					<option value="4.5">4.5</option>
+					<option value="5.0">5.0</option>
+					<option value="5.5">5.5</option>
+					<option value="6.0">6.0</option>
+					<option value="6.5">6.5</option>
+					<option value="7.0">7.0</option>
+					<option value="7.5">7.5</option>
+					<option value="8.0">8.0</option>
+					<option value="8.5">8.5</option>
+					<option value="9.0">9.0</option>
+					<option value="9.5">9.5</option>
+					<option value="10.0">10.0</option>
+					<option value="10.5">10.5</option>
+					<option value="11.0">11.0</option>
+					<option value="11.5">11.5</option>
+					<option value="12.0">12.0</option>
+				</select>
+				<input class="task-content save-trigger" placeholder="（タスク名を書いてください）"></input>
+				<div class="draggable-icon"><p class="inner-icon">⇔</p></div>
+			</div>
+		</template>
+		<template id="nextday-cost-template">
+			<div class="section-row production-cost undraggable">
+				<select class="costs save-trigger">
+					<option value=""></option>
+					<option value="?.?">?.?</option>
+					<option value="0.5">0.5</option>
+					<option value="1.0">1.0</option>
+					<option value="1.5">1.5</option>
+					<option value="2.0">2.0</option>
+					<option value="2.5">2.5</option>
+					<option value="3.0">3.0</option>
+					<option value="3.5">3.5</option>
+					<option value="4.0">4.0</option>
+					<option value="4.5">4.5</option>
+					<option value="5.0">5.0</option>
+					<option value="5.5">5.5</option>
+					<option value="6.0">6.0</option>
+					<option value="6.5">6.5</option>
+					<option value="7.0">7.0</option>
+					<option value="7.5">7.5</option>
+					<option value="8.0">8.0</option>
+					<option value="8.5">8.5</option>
+					<option value="9.0">9.0</option>
+					<option value="9.5">9.5</option>
+					<option value="10.0">10.0</option>
+					<option value="10.5">10.5</option>
+					<option value="11.0">11.0</option>
+					<option value="11.5">11.5</option>
+					<option value="12.0">12.0</option>
+				</select>
+				<input class="task-content save-trigger" placeholder="（タスク名を書いてください）"></input>
+				<div class="draggable-icon"><p class="inner-icon">⇔</p></div>
+			</div>
+		</template>
+		<template id="reorder-provision-template">
+			<div class="section-row reorder-provision">
+			</div>
+		</template>
+		<script src="daily_report.js">
+		</script>
+	</body>
+
+</html>
